@@ -11,7 +11,7 @@ export function Header() {
    
   return (
     <>
-        <header className="flex justify-center w-screen bg-purple-400 bg-opacity-40">
+        <header className="flex justify-center w-screen bg-black bg-opacity-40">
         <div className="flex items-center justify-between w-3/4">
           
         <img className="h-14" src={imageHeader} alt="logo"/>

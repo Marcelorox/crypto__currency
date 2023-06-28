@@ -26,20 +26,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Asset[] | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
-    try {
-      const { data } = await api.get("/assets");
-      const dataArray: Asset[] = Object.values(data.data);
-      setInfo(dataArray);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const { data } = await api.get("/assets");
+  //     const dataArray: Asset[] = Object.values(data.data);
+  //     setInfo(dataArray);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // };
   
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   const value: UserContextProps = {

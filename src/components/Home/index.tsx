@@ -11,8 +11,8 @@ export function Home() {
       <div className="flex min-h-screen w-full h-full bg-[url('./assets/space.jpg')] bg-cover">
         <div className="flex flex-col">
           <Header />
-          <main className="flex justify-center w-full h-[82%] bg-gray-700 bg-opacity-80 max-h-[100vh] ">
-            <div className="flex flex-col w-3/4 overflow-scroll  max-h-[90vh]">
+          <main className="flex justify-center w-full h-[82%] max-h-[100vh] bg-black bg-opacity-40 border-t-[0.5px] border-b-[0.5px] border-gray-500">
+            <div className="flex w-3/4 flex-wrap overflow-scroll max-w-[100vw]  max-h-[90vh] bg-purple-800 bg-opacity-40">
               {loading || !info ? (
                 <div className="flex justify-center h-full m-auto mt-36">
                   <div
@@ -25,17 +25,32 @@ export function Home() {
                   </div>
                 </div>
               ) : (
-                info.map((data : any) => (
-                <div key={data.id} className="flex flex-col w-3/5 max-h-36">
-                    <div className="flex flex-col">
-                      <img
-                        className="w-24 h-24"
-                        src={`https://assets.coincap.io/assets/icons/${data.symbol.toLowerCase()}@2x.png`}
-                        alt={data.name + ' image'}
-                      />
-                      {data.name}
+                info.map((data: any) => (
+                  <div
+                    key={data.id}
+                    className="flex flex-col p-6 ml-6 mt-4 h-[13rem] w-[10rem] justify-center"
+                  >
+                    <div className="flex flex-col ">
+                      <div className="flex justify-center">
+                        <img
+                          className="h-[75px] w-22"
+                          src={`https://assets.coincap.io/assets/icons/${data.symbol.toLowerCase()}@2x.png`}
+                          alt={data.name + " image"}
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <span className="flex justify-center mt-2 text-slate-300">
+                          {data.name}
+                        </span>
+                        <span className="flex justify-center mt-1">
+                          {data.priceUsd.slice(0, 7)}
+                        </span>
+                        
+                      </div>
+                      
                     </div>
-                </div>  
+                    <button className="flex items-center justify-center mt-3 bg-slate-300">Exchange</button>
+                  </div>
                 ))
               )}
             </div>

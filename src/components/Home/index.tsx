@@ -11,8 +11,8 @@ export function Home() {
       <div className="flex min-h-screen w-full h-full bg-[url('./assets/space.jpg')] bg-cover">
         <div className="flex flex-col">
           <Header />
-          <main className="flex justify-center w-full h-[82%] max-h-[100vh] bg-black bg-opacity-40 border-t-[0.5px] border-b-[0.5px] border-gray-500">
-            <div className="flex w-3/4 flex-wrap overflow-scroll max-w-[100vw]  max-h-[90vh] bg-purple-800 bg-opacity-40">
+          <main className="flex justify-center w-full h-[82%] max-h-[100vh] bg-black bg-opacity-90 border-t-[0.5px] border-b-[0.5px] border-gray-500">
+            <div className="flex w-3/4 flex-wrap overflow-scroll max-w-[100vw]  max-h-[90vh] ">
               {loading || !info ? (
                 <div className="flex justify-center h-full m-auto mt-36">
                   <div
@@ -28,7 +28,7 @@ export function Home() {
                 info.map((data: any) => (
                   <div
                     key={data.id}
-                    className="flex flex-col p-6 ml-6 mt-4 h-[13rem] w-[10rem] justify-center"
+                    className="flex flex-col p-6 ml-6 mt-4 h-[14rem] w-[10.3rem] justify-center bg-white bg-opacity-10 transition duration-300 ease-in-out rounded hover:scale-110 "
                   >
                     <div className="flex flex-col ">
                       <div className="flex justify-center">
@@ -39,17 +39,17 @@ export function Home() {
                         />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <span className="flex justify-center mt-2 text-slate-300">
-                          {data.name}
+                        <span className="flex justify-center mt-2 text-sm text-slate-300">
+                          {data.name.slice(0, 12)}
                         </span>
-                        <span className="flex justify-center mt-1">
-                          {data.priceUsd.slice(0, 7)}
+                        <span className="flex justify-center mt-1 text-sm text-white">
+                          ${data.priceUsd.slice(0, 7)}
                         </span>
                         
                       </div>
                       
                     </div>
-                    <button className="flex items-center justify-center mt-3 bg-slate-300">Exchange</button>
+                    <button className="items-center justify-center h-8 mt-2 text-white transition duration-300 bg-blue-400 rounded hover:bg-blue-700">Exchange</button>
                   </div>
                 ))
               )}
@@ -57,10 +57,17 @@ export function Home() {
           </main>
           <footer className="h-[12.4%] flex justify-between w-full bg-black  bg-opacity-40">
             <div className="flex w-[70%]">
+              <div>
               <span>Marcelo Rocha</span>
+              </div>
+              <div>
+                
+              </div>
             </div>
             <div className="w-[30%]">
-              <span>rocha</span>
+              <div>
+                
+              </div>
             </div>
           </footer>
         </div>

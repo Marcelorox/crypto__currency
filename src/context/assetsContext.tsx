@@ -1,13 +1,6 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { api } from "../api/api";
 
-interface UserContextProps {
-  info: Asset[] | null;
-  loading: boolean;
-  isEmailCopied: boolean;
-  handleCopyEmail: () => void;
-}
-
 interface Asset {
   id: string;
   rank: string;
@@ -22,12 +15,22 @@ interface Asset {
   vwap24Hr: string;
 }
 
+interface UserContextProps extends Asset {
+  info: Asset[] | null;
+  loading: boolean; 
+  isEmailCopied: boolean;
+  handleCopyEmail: () => void;
+  setCripto: (data: Asset[] | null) => void;
+  cripto: Asset[] | null;
+}
+
 export const UserContext = createContext<UserContextProps | null>(null);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Asset[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEmailCopied, setIsEmailCopied] = useState(false);
+  const [cripto, setCripto] = useState<Asset[] | null>(null);
 
   const handleCopyEmail = () => {
     const emailElement = document.getElementById("email");
@@ -42,7 +45,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setTimeout(() => setIsEmailCopied(false), 2000);
     }
   };
-  
 
   const fetchData = async () => {
     try {
@@ -52,10 +54,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -64,7 +66,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     info,
     loading,
     isEmailCopied,
-    handleCopyEmail
+    handleCopyEmail,
+    setCripto,
+    cripto
   };
 
   return (

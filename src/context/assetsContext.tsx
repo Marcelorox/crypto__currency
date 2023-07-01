@@ -4,6 +4,8 @@ import { api } from "../api/api";
 interface UserContextProps {
   info: Asset[] | null;
   loading: boolean;
+  isEmailCopied: boolean;
+  handleCopyEmail: () => void;
 }
 
 interface Asset {
@@ -25,6 +27,22 @@ export const UserContext = createContext<UserContextProps | null>(null);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Asset[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isEmailCopied, setIsEmailCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    const emailElement = document.getElementById("email");
+    if (emailElement) {
+      const tempInput = document.createElement("input");
+      tempInput.value = emailElement.textContent || "";
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      setIsEmailCopied(true);
+      setTimeout(() => setIsEmailCopied(false), 2000);
+    }
+  };
+  
 
   const fetchData = async () => {
     try {
@@ -45,6 +63,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const value: UserContextProps = {
     info,
     loading,
+    isEmailCopied,
+    handleCopyEmail
   };
 
   return (

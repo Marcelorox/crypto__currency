@@ -1,18 +1,20 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Header } from "../Header";
-import { UserContext } from "../../context/usecontext";
+import { UserContext } from "../../context/assetsContext";
+import { FaWhatsapp, FaLinkedinIn, FaGithub, FaCopy } from "react-icons/fa";
+import imageHeader from "../../assets/eth.png";
 
 export function Home() {
   const userContext = useContext(UserContext);
-  const { info, loading } = userContext || {};
+  const { info, loading, isEmailCopied, handleCopyEmail } = userContext || {};
 
   return (
     <>
       <div className="flex min-h-screen w-full h-full bg-[url('./assets/space.jpg')] bg-cover">
         <div className="flex flex-col">
           <Header />
-          <main className="flex justify-center w-full h-[82%] max-h-[100vh] bg-black bg-opacity-90 border-t-[0.5px] border-b-[0.5px] border-gray-500">
-            <div className="flex w-3/4 flex-wrap overflow-scroll max-w-[100vw]  max-h-[90vh] ">
+          <main className="flex justify-center w-full h-[100%] max-h-[85vh] bg-black bg-opacity-90 border-t-[0.5px] border-b-[0.5px] border-gray-500">
+            <div className="flex w-3/4 flex-wrap overflow-scroll max-w-[100vw] mt-3  max-h-[80vh] ">
               {loading || !info ? (
                 <div className="flex justify-center h-full m-auto mt-36">
                   <div
@@ -43,30 +45,69 @@ export function Home() {
                           {data.name.slice(0, 12)}
                         </span>
                         <span className="flex justify-center mt-1 text-sm text-white">
-                          ${data.priceUsd.slice(0, 7)}
+                          $ {data.priceUsd.slice(0, 7)}
                         </span>
-                        
                       </div>
-                      
                     </div>
-                    <button className="items-center justify-center h-8 mt-2 text-white transition duration-300 bg-blue-400 rounded hover:bg-blue-700">Exchange</button>
+                    <button className="items-center justify-center h-8 mt-2 text-white transition duration-300 bg-blue-400 rounded hover:bg-blue-700">
+                      Exchange
+                    </button>
                   </div>
                 ))
               )}
             </div>
           </main>
-          <footer className="h-[12.4%] flex justify-between w-full bg-black  bg-opacity-40">
-            <div className="flex w-[70%]">
-              <div>
-              <span>Marcelo Rocha</span>
+          <footer className="h-[10%] flex justify-center bg-black  bg-opacity-40">
+            <div className="flex justify-center w-3/4">
+              <div className="flex w-[70%]">
+                <div className="flex items-center justify-center h-full">
+                  <img className="h-14" src={imageHeader} alt="" />
+                </div>
+                <div className="flex items-center justify-center h-full">
+                  <span className="text-sm text-slate-100">contact:     </span>
+                  <span
+                    id="email"
+                    className="ml-[4px] text-sm text-slate-100"
+                    onClick={handleCopyEmail}
+                    style={{ cursor: "pointer" }}
+                  >
+                    marcelo.paladino01@gmail.com
+                  </span>
+                  {isEmailCopied ? (
+                    <FaCopy className="ml-2 text-green-400" />
+                  ) : (
+                    <FaCopy
+                      onClick={handleCopyEmail}
+                      className="ml-2 text-white transition duration-300 hover:text-green-400 hover:scale-110"
+                    />
+                  )}
+                </div>
               </div>
-              <div>
-                
-              </div>
-            </div>
-            <div className="w-[30%]">
-              <div>
-                
+              <div className="w-[30%] flex justify-end mr-4 items-center">
+                <div className="flex">
+                  <a
+                    href="https://github.com/Marcelorox"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white transition duration-300 hover:text-orange-200 hover:scale-110"
+                  >
+                    <FaGithub />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/marcelo-rocha-paladino/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-2 text-white transition duration-300 hover:text-blue-300 hover:scale-110"
+                  >
+                    <FaLinkedinIn />
+                  </a>
+                  <a
+                    href=""
+                    className="ml-2 text-white transition duration-300 hover:text-green-400 hover:scale-110"
+                  >
+                    <FaWhatsapp />
+                  </a>
+                </div>
               </div>
             </div>
           </footer>

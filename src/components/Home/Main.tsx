@@ -11,8 +11,7 @@ export function Main() {
   const openDialog = (data: any) => {
     setCripto && setCripto(data);
     setIsOpen(true);
-    fetchCandle(data)
-    
+    fetchCandle(data.name)
   };
 
   const closeDialog = () => {
@@ -64,7 +63,7 @@ export function Main() {
           ))
         )}
       </div>
-      {isOpen && (
+      {isOpen && cripto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
             className="fixed inset-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm"

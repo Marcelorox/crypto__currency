@@ -14,39 +14,38 @@ interface Asset {
   changePercent24Hr: string;
   vwap24Hr: string;
 }
+
 interface Candle {
-  open: string,
-  high: string,
-  low: string,
-  close: string,
-  volume: string,
-  period: number
+  open: string;
+  high: string;
+  low: string;
+  close: string;
+  volume: string;
+  period: number;
+  response: string;
 }
 
-interface UserContextProps extends Candle {
-  dataCandle:Candle[] | null;
-  fetchCandle: (data: Candle[] | null) => void;
-}
-
-interface UserContextProps extends Asset {
+interface UserContextProps {
   info: Asset[] | null;
-  loading: boolean; 
-  isEmailCopied: boolean;
+  loading: boolean;
+  cripto: Asset | null;
   handleCopyEmail: () => void;
-  setCripto: (data: Asset[] | null) => void;
-  cripto: Asset[] | null;
+  isEmailCopied: boolean;
+  setCripto: (data: Asset | null) => void;
+  fetchCandle: (symbol: string) => void;
+  dataCandle: Candle[] | null;
 }
 
-
-
-export const UserContext = createContext<UserContextProps>({} as UserContextProps);
+export const UserContext = createContext<UserContextProps>(
+  {} as UserContextProps
+);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Asset[] | null>(null);
-  const [dataCandle, setDataCandle] = useState<Candle[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [cripto, setCripto] = useState<Asset | null>(null);
+  const [dataCandle, setDataCandle] = useState<Candle[] | null>(null);
   const [isEmailCopied, setIsEmailCopied] = useState(false);
-  const [cripto, setCripto] = useState<Asset[] | null>(null);
 
   const handleCopyEmail = () => {
     const emailElement = document.getElementById("email");
@@ -74,35 +73,34 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-      fetchData();
-  }, []);
 
-  
- const fetchCandle = async (response : string | number) => {
-      try {
-        const { data } = await api.get(`/candles?exchange=poloniex&interval=h8&baseId=${response.name}&quoteId=bitcoin\n`);
-        const dataArray: Candle[] = Object.values(data.data);
-        setDataCandle(dataArray)
-      } catch (error) {
-        console.log(error);
-      }
+  const fetchCandle = async (symbol: string) => {
+    try {
+      const { data } = await api.get(
+        `/candles?exchange=poloniex&interval=h8&baseId=${symbol}&quoteId=bitcoin\n`
+      );
+      const dataArray: Candle[] = Object.values(data.data);
+      setDataCandle(dataArray);
+      console.log(dataCandle);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const value: UserContextProps = {
     info,
     loading,
+    cripto,
+    setCripto,
+    fetchCandle,
+    dataCandle,
     isEmailCopied,
     handleCopyEmail,
-    setCripto,
-    cripto,
-    dataCandle,
-    fetchCandle
   };
 
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

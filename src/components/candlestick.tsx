@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts";
 
 interface CandleProps {}
 
-export const Sail: React.FC<CandleProps> = (props : CandleProps) => {
+export const Sail: React.FC<CandleProps> = () => {
   const series = [
     {
       data: [
@@ -27,25 +27,9 @@ export const Sail: React.FC<CandleProps> = (props : CandleProps) => {
     chart: {
       type: "candlestick",
       height: 150,
-      zoom: {
-        enabled: true,
-        type: 'x',  
-        autoScaleYaxis: false,  
-        zoomedArea: {
-          fill: {
-            color: '#90CAF9',
-            opacity: 0.4
-          },
-          stroke: {
-            color: '#0D47A1',
-            opacity: 0.4,
-            width: 1
-          }
-        }
-    }
     },
     title: {
-      text: "CandleStick Chart",
+      text: "Graphic",
       align: "left"
     },
     xaxis: {

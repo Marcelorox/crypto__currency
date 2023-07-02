@@ -5,12 +5,14 @@ import { Sail } from "../candlestick";
 
 export function Main() {
   const userContext = useContext(UserContext);
-  const { info, loading, cripto, setCripto } = userContext || {};
+  const { info, loading, cripto, setCripto, fetchCandle } = userContext || {};
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = (data: any) => {
     setCripto && setCripto(data);
     setIsOpen(true);
+    fetchCandle(data)
+    
   };
 
   const closeDialog = () => {

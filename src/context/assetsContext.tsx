@@ -14,6 +14,19 @@ interface Asset {
   changePercent24Hr: string;
   vwap24Hr: string;
 }
+interface Candle {
+  open: string,
+  high: string,
+  low: string,
+  close: string,
+  volume: string,
+  period: number
+}
+
+interface UserContextProps extends Candle {
+  dataCandle:Candle[] | null;
+  fetchCandle: (data: Candle[] | null) => void;
+}
 
 interface UserContextProps extends Asset {
   info: Asset[] | null;
@@ -24,16 +37,20 @@ interface UserContextProps extends Asset {
   cripto: Asset[] | null;
 }
 
-export const UserContext = createContext<UserContextProps | null>(null);
+
+
+export const UserContext = createContext<UserContextProps>({} as UserContextProps);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [info, setInfo] = useState<Asset[] | null>(null);
+  const [dataCandle, setDataCandle] = useState<Candle[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEmailCopied, setIsEmailCopied] = useState(false);
   const [cripto, setCripto] = useState<Asset[] | null>(null);
 
   const handleCopyEmail = () => {
     const emailElement = document.getElementById("email");
+
     if (emailElement) {
       const tempInput = document.createElement("input");
       tempInput.value = emailElement.textContent || "";
@@ -57,10 +74,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchData();
+      fetchData();
   }, []);
+
+  
+ const fetchCandle = async (response : string | number) => {
+      try {
+        const { data } = await api.get(`/candles?exchange=poloniex&interval=h8&baseId=${response.name}&quoteId=bitcoin\n`);
+        const dataArray: Candle[] = Object.values(data.data);
+        setDataCandle(dataArray)
+      } catch (error) {
+        console.log(error);
+      }
+  };
 
   const value: UserContextProps = {
     info,
@@ -68,7 +95,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     isEmailCopied,
     handleCopyEmail,
     setCripto,
-    cripto
+    cripto,
+    dataCandle,
+    fetchCandle
   };
 
   return (

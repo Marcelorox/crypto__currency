@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/assetsContext";
+import { Sail } from "../candlestick";
+
 
 export function Main() {
   const userContext = useContext(UserContext);
@@ -81,11 +83,16 @@ export function Main() {
                   alt={`${cripto.name} image`}
                 />
               </div>
+
               <div className="flex flex-col justify-center ml-4">
                 <span>{cripto.priceUsd.slice(0, 8)}</span>
                 <span>{cripto.name}</span>
               </div>
             </div>
+            <div id="inferno" className="mt-9">
+              <Sail/>
+            </div>
+            
           </div>
         </div>
       )}

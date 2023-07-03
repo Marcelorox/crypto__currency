@@ -13,7 +13,7 @@ main
 
 crypto selected model:
 
-![Image 7-2-23 at 1 15 PM](https://github.com/Marcelorox/crypto__currency/assets/123993243/ab56aed0-f9b1-4a18-aa55-01d7b61d36ea)
+![EDCAE0CF-A354-47EB-82BB-2082799C7AD3](https://github.com/Marcelorox/BackendCandleService/assets/123993243/8f96e740-7752-4a72-a232-ebb83e04e913)
 
 
 <h1>Cryptocurrency Site</h1>

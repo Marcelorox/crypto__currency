@@ -23,7 +23,6 @@ export function Header() {
             to="/"
             currentIndex={currentIndex} 
             label="Home"
-          
           />
           <NavItem
             index={2}
@@ -31,7 +30,6 @@ export function Header() {
             to="/"
             currentIndex={currentIndex}
             label="Contact"
-          
           />
           <NavItem
             index={3}
@@ -39,7 +37,6 @@ export function Header() {
             to="/"
             currentIndex={currentIndex}
             label="About"
-          
           />
         </nav>
         

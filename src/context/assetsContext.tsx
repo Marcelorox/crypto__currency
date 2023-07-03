@@ -16,7 +16,7 @@ export interface Asset {
   vwap24Hr: string;
 }
 
-interface Candle {
+export interface Candle {
   open: string;
   high: string;
   low: string;
@@ -78,9 +78,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const fetchCandle = async (symbol: string) => {
     try {
       const { data } = await axios.get(`http://localhost:3000/${symbol}/1hour`);
-      const dataArray: Candle[] = Object.values(data);
+      const dataArray: Candle[] = Object.values(data.data);
       setDataCandle(dataArray);
-      console.log(dataArray)  
     } catch (error) {
       console.log(error);
     }

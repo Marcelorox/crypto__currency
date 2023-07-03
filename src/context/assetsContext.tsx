@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { api } from "../api/api";
+import axios from "axios";
 
-interface Asset {
+export interface Asset {
   id: string;
   rank: string;
   symbol: string;
@@ -76,12 +77,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchCandle = async (symbol: string) => {
     try {
-      const { data } = await api.get(
-        `/candles?exchange=poloniex&interval=h8&baseId=${symbol}&quoteId=bitcoin\n`
-      );
-      const dataArray: Candle[] = Object.values(data.data);
+      const { data } = await axios.get(`http://localhost:3000/${symbol}/1hour`);
+      const dataArray: Candle[] = Object.values(data);
       setDataCandle(dataArray);
-      console.log(dataCandle);
+      console.log(dataArray)  
     } catch (error) {
       console.log(error);
     }

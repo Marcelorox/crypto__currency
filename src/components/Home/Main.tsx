@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../context/assetsContext";
+import { Asset, UserContext } from "../../context/assetsContext";
 import { Sail } from "../candlestick";
 
 
@@ -8,10 +8,10 @@ export function Main() {
   const { info, loading, cripto, setCripto, fetchCandle } = userContext || {};
   const [isOpen, setIsOpen] = useState(false);
 
-  const openDialog = (data: any) => {
+  const openDialog = (data: Asset) => {
     setCripto && setCripto(data);
     setIsOpen(true);
-    fetchCandle(data.name)
+    fetchCandle(data.symbol)
   };
 
   const closeDialog = () => {

@@ -1,5 +1,5 @@
 # crypto__currency
-to practice an functional site to get itens of database || cryptocurrency
+to practice :) || cryptocurrency
 
 site images:
 
